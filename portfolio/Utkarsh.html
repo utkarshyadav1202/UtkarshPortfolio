@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Utkarsh | Java Full-Stack Developer</title>
+  <!-- Google Fonts + Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- AOS Library for simple fade-in -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0c12;
+      color: #eef5ff;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* animated gradient background & particles */
+    .animated-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: radial-gradient(circle at 10% 20%, rgba(20, 30, 55, 0.9), #03050b);
+    }
+
+    .glow-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .glow-particle {
+      position: absolute;
+      background: radial-gradient(circle, rgba(100, 108, 255, 0.4), transparent);
+      border-radius: 50%;
+      filter: blur(40px);
+      animation: float-particle 18s infinite alternate ease-in-out;
+    }
+
+    @keyframes float-particle {
+      0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+      100% { transform: translate(40px, -40px) scale(1.3); opacity: 0.7; }
+    }
+
+    /* scroll progress */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, #3b82f6, #a855f7);
+      z-index: 1000;
+      transition: width 0.1s;
+    }
+
+    /* navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(16px);
+      background: rgba(10, 12, 24, 0.7);
+      border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+      z-index: 99;
+      padding: 1rem 2rem;
+      transition: all 0.3s;
+    }
+
+    .nav-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #c084fc, #3b82f6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #e2e8f0;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #60a5fa;
+    }
+
+    /* common container */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    section {
+      position: relative;
+    }
+
+    /* glassmorphism cards */
+    .glass-card {
+      background: rgba(20, 25, 45, 0.45);
+      backdrop-filter: blur(12px);
+      border-radius: 2rem;
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      transition: all 0.35s ease;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+
+    .glass-card:hover {
+      border-color: rgba(139, 92, 246, 0.6);
+      transform: translateY(-6px);
+      box-shadow: 0 25px 40px rgba(0,0,0,0.3);
+    }
+
+    /* hero section */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-content {
+      flex: 1;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      background: linear-gradient(to right, #f0f9ff, #a5f3fc, #c084fc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .typing {
+      font-size: 1.9rem;
+      font-weight: 600;
+      color: #93c5fd;
+      min-height: 4rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+    }
+
+    .btn {
+      padding: 0.8rem 1.8rem;
+      border-radius: 40px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(95deg, #2563eb, #7c3aed);
+      border: none;
+      color: white;
+      box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(124, 58, 237, 0.5);
+    }
+
+    .btn-outline {
+      border: 1px solid #3b82f6;
+      background: transparent;
+      color: #b9e0ff;
+    }
+
+    .btn-outline:hover {
+      background: rgba(59,130,246,0.2);
+      border-color: #a855f7;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    .social-icons a {
+      background: rgba(255,255,255,0.05);
+      width: 44px;
+      height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: #cbd5e1;
+      font-size: 1.4rem;
+      transition: 0.25s;
+    }
+
+    .social-icons a:hover {
+      background: #2563eb;
+      color: white;
+      transform: translateY(-4px);
+    }
+
+    /* stats counters */
+    .stats-grid {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .stat-card {
+      background: rgba(15, 20, 35, 0.6);
+      backdrop-filter: blur(8px);
+      border-radius: 1.5rem;
+      padding: 1rem 2rem;
+      text-align: center;
+      flex: 1;
+    }
+
+    .counter {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #60a5fa;
+    }
+
+    /* skills progress */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .skill-category {
+      background: rgba(25, 30, 50, 0.5);
+      backdrop-filter: blur(8px);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+    }
+
+    .skill-item {
+      margin: 1rem 0;
+    }
+
+    .skill-bar {
+      background: #1e293b;
+      border-radius: 20px;
+      height: 8px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .skill-progress {
+      height: 8px;
+      background: linear-gradient(90deg, #3b82f6, #c084fc);
+      width: 0%;
+      border-radius: 20px;
+      transition: width 1s ease;
+    }
+
+    /* timeline */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+      border-left: 2px solid #3b82f6;
+    }
+
+    .timeline-item {
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.45rem;
+      top: 0.3rem;
+      width: 1rem;
+      height: 1rem;
+      background: #a855f7;
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px rgba(168,85,247,0.3);
+    }
+
+    /* project cards */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .project-card {
+      background: rgba(18, 22, 45, 0.7);
+      backdrop-filter: blur(12px);
+      border-radius: 2rem;
+      padding: 1.5rem;
+      transition: all 0.3s;
+      border: 1px solid rgba(71, 85, 105, 0.3);
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-image: linear-gradient(135deg, #3b82f6, #a855f7);
+      border-image-slice: 1;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
+    }
+
+    .tech-badge {
+      background: rgba(59,130,246,0.2);
+      padding: 0.3rem 0.8rem;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      display: inline-block;
+      margin: 0.2rem;
+    }
+
+    /* form */
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      padding: 1rem;
+      background: rgba(20, 27, 45, 0.8);
+      border: 1px solid #334155;
+      border-radius: 1rem;
+      color: white;
+      transition: 0.2s;
+    }
+
+    .contact-form input:focus, .contact-form textarea:focus {
+      border-color: #3b82f6;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.3);
+    }
+
+    footer {
+      background: rgba(5, 7, 15, 0.8);
+      backdrop-filter: blur(8px);
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .scroll-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #3b82f6;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: 0.3s;
+      z-index: 99;
+    }
+
+    /* Profile image circular mask */
+    .profile-mask {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: linear-gradient(145deg, #2b3b6e, #1f2a46);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid rgba(79, 70, 229, 0.7);
+      box-shadow: 0 0 25px rgba(59,130,246,0.3);
+      transition: transform 0.3s ease;
+    }
+    .profile-mask:hover {
+      transform: scale(1.02);
+      border-color: #a855f7;
+    }
+    .profile-mask img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-profile-wrap {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      .typing {
+        font-size: 1.4rem;
+      }
+      .container {
+        padding: 2rem 1rem;
+      }
+      .stats-grid {
+        flex-direction: column;
+      }
+      .hero-profile-wrap {
+        justify-content: center;
+        text-align: center;
+      }
+      .profile-mask {
+        width: 110px;
+        height: 110px;
+        margin: 0 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="animated-bg"></div>
+<div class="glow-particles" id="particles"></div>
+<div class="scroll-progress" id="scrollProgress"></div>
+<div class="scroll-top" id="scrollTopBtn"><i class="fas fa-arrow-up"></i></div>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo">Utkarsh.dev</div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="container">
+      <div class="hero-content" data-aos="fade-up">
+        <div class="hero-profile-wrap">
+          <!-- Profile image with circular mask -->
+          <div class="profile-mask">
+            <img src="jhg.png" alt="Utkarsh Profile Picture">
+          </div>
+          <div>
+            <h1>Utkarsh</h1>
+            <div class="typing" id="typingText"></div>
+          </div>
+        </div>
+        <p style="font-size: 1.2rem; margin-top: 1rem; max-width: 700px;">B.Tech student specializing in Artificial Intelligence & Data Science with hands-on experience in Java, Spring Boot, REST APIs, MySQL, and full-stack application development.</p>
+        <div class="cta-buttons">
+          <a href="#projects" class="btn btn-primary"><i class="fas fa-arrow-right"></i> View Projects</a>
+          <a href="#contact" class="btn btn-primary"><i class="fas fa-envelope"></i> Contact Me</a>
+          <a href="https://i.postimg.cc/VNtYy97B/UTKARSH-RESUME.jpg" id="downloadResumeBtn" class="btn btn-outline"><i class="fas fa-download"></i> Download Resume</a>
+        </div>
+        <div class="social-icons">
+          <a href="https://www.linkedin.com/in/utkarsh-yadav-40bb33244/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://github.com/utkarshyadav1202/Portfolio" target="_blank"><i class="fab fa-github"></i></a>
+          <a href="mailto:utkarshyadav1202@gmail.com"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="container">
+      <h2 data-aos="fade-right" style="font-size: 2.5rem; margin-bottom: 2rem;"><span style="border-left: 5px solid #3b82f6; padding-left: 1rem;">About Me</span></h2>
+      <div class="glass-card" data-aos="fade-up" style="padding: 2rem;">
+        <p style="line-height: 1.6;">Utkarsh is a passionate B.Tech student in Artificial Intelligence & Data Science from Khwaja Moinuddin Chishti Language University. He has strong interest and practical experience in Java and full-stack development. He enjoys building scalable applications, solving technical challenges, and continuously learning modern technologies.</p>
+        <div class="stats-grid">
+          <div class="stat-card"><div class="counter" id="projectsCount">0</div><div>Projects Completed</div></div>
+          <div class="stat-card"><div class="counter" id="experienceCount">0</div><div>Months Experience</div></div>
+          <div class="stat-card"><div class="counter" id="techCount">0</div><div>Technologies</div></div>
+        </div>
+        <div class="timeline" style="margin-top: 2rem;">
+          <div class="timeline-item"><strong>🎓 B.Tech CSE (AI & DS)</strong><br>Khwaja Moinuddin Chishti Language University, 2023 – 2026</div>
+          <div class="timeline-item"><strong>📘 Diploma in Civil Engineering</strong><br>Swami Sahajanand Polytechnic Institute, Azamgarh, 2020 – 2023</div>
+        </div>
+        <div style="margin-top: 2rem;"><a href="#" id="aboutResumeBtn" class="btn btn-primary"><i class="fas fa-file-alt"></i> Download Resume</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills">
+    <div class="container">
+      <h2 data-aos="fade-right" style="font-size: 2.5rem; margin-bottom: 2rem;">Technical Arsenal</h2>
+      <div class="skills-grid">
+        <div class="skill-category"><h3><i class="fas fa-code"></i> Languages</h3><div class="skill-item"><span>Java</span><div class="skill-bar"><div class="skill-progress" data-width="90"></div></div></div><div class="skill-item"><span>Python</span><div class="skill-bar"><div class="skill-progress" data-width="75"></div></div></div></div>
+        <div class="skill-category"><h3><i class="fab fa-react"></i> Frontend</h3><div class="skill-item"><span>HTML5</span><div class="skill-bar"><div class="skill-progress" data-width="85"></div></div></div><div class="skill-item"><span>CSS3</span><div class="skill-bar"><div class="skill-progress" data-width="80"></div></div></div></div>
+        <div class="skill-category"><h3><i class="fas fa-server"></i> Backend</h3><div class="skill-item"><span>Spring Boot</span><div class="skill-bar"><div class="skill-progress" data-width="88"></div></div></div><div class="skill-item"><span>Hibernate</span><div class="skill-bar"><div class="skill-progress" data-width="82"></div></div></div><div class="skill-item"><span>Spring Security</span><div class="skill-bar"><div class="skill-progress" data-width="78"></div></div></div></div>
+        <div class="skill-category"><h3><i class="fas fa-database"></i> Database & Tools</h3><div class="skill-item"><span>MySQL</span><div class="skill-bar"><div class="skill-progress" data-width="85"></div></div></div><div class="skill-item"><span>Git & GitHub</span><div class="skill-bar"><div class="skill-progress" data-width="80"></div></div></div><div class="skill-item"><span>Postman</span><div class="skill-bar"><div class="skill-progress" data-width="75"></div></div></div></div>
+        <div class="skill-category"><h3><i class="fas fa-brain"></i> Core Concepts</h3><div>DSA, OOP, DBMS, REST APIs, JWT, MVC</div></div>
+        <div class="skill-category"><h3><i class="fas fa-users"></i> Soft Skills</h3><div>Problem Solving, Team Collaboration, Communication, Adaptability</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience">
+    <div class="container">
+      <h2 data-aos="fade-right" style="font-size: 2.5rem;">Work Experience</h2>
+      <div class="glass-card" data-aos="zoom-in" style="padding: 2rem; margin-top: 1.5rem;">
+        <div class="timeline-item"><strong>💼 Java Development Intern — Labmentix</strong> <span style="color:#9ca3af;">Jan 2026 – Mar 2026</span>
+          <ul style="margin-top: 12px; list-style: none;">
+            <li>✓ Backend development & API integration with Java & Spring Boot</li>
+            <li>✓ Designed RESTful APIs and improved frontend-backend communication</li>
+            <li>✓ Debugged application issues and optimized performance</li>
+            <li>✓ Collaborated with teams using agile methods</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects">
+    <div class="container">
+      <h2 data-aos="fade-right">Hero Projects</h2>
+      <div class="projects-grid">
+        <div class="project-card" data-aos="flip-left">
+          <h3><i class="fas fa-shield-alt"></i> Women Safety App</h3>
+          <p>SOS emergency alert, live GPS tracking, JWT authentication, RBAC, low-latency alert handling, full-stack architecture.</p>
+          <div><span class="tech-badge">Java</span><span class="tech-badge">Spring Boot</span><span class="tech-badge">MySQL</span><span class="tech-badge">JWT</span></div>
+          <div style="margin-top: 1rem;"><a href="#" class="btn-outline btn" style="padding:0.3rem 1rem;">GitHub Repo →</a></div>
+        </div>
+        <div class="project-card" data-aos="flip-left">
+          <h3><i class="fas fa-graduation-cap"></i> Student Management System</h3>
+          <p>Student records, attendance, result management, REST APIs, responsive UI, Hibernate ORM, role-based access.</p>
+          <div><span class="tech-badge">Spring Boot</span><span class="tech-badge">Hibernate</span><span class="tech-badge">MySQL</span><span class="tech-badge">HTML/CSS</span></div>
+          <div style="margin-top: 1rem;"><a href="#" class="btn-outline btn" style="padding:0.3rem 1rem;">Preview</a></div>
+        </div>
+        <div class="project-card" data-aos="flip-left">
+          <h3><i class="fas fa-chalkboard-teacher"></i> Ed-Tech Resource Platform</h3>
+          <p>Resource upload/download, structured academic content management, responsive interface, MySQL backend.</p>
+          <div><span class="tech-badge">HTML</span><span class="tech-badge">CSS</span><span class="tech-badge">MySQL</span></div>
+          <div style="margin-top: 1rem;"><a href="#" class="btn-outline btn" style="padding:0.3rem 1rem;">Live Demo</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services">
+    <div class="container">
+      <h2 data-aos="fade-right">Services & Expertise</h2>
+      <div class="projects-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px,1fr));">
+        <div class="glass-card" style="padding: 1.8rem; text-align: center;"><i class="fas fa-cogs" style="font-size: 2.5rem; color:#3b82f6;"></i><h3>Backend Development</h3><p>REST APIs, authentication, scalable Spring Boot architecture.</p></div>
+        <div class="glass-card" style="padding: 1.8rem; text-align: center;"><i class="fas fa-laptop-code"></i><h3>Full-Stack Apps</h3><p>End-to-end web apps with modern responsive design.</p></div>
+        <div class="glass-card" style="padding: 1.8rem; text-align: center;"><i class="fas fa-database"></i><h3>Database Integration</h3><p>MySQL optimization, Hibernate mapping & complex queries.</p></div>
+        <div class="glass-card" style="padding: 1.8rem; text-align: center;"><i class="fas fa-lock"></i><h3>Auth Systems</h3><p>JWT, Spring Security, Role-Based Access Control.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container">
+      <h2 data-aos="fade-up">Let’s Connect</h2>
+      <div class="glass-card" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; padding: 2rem;" data-aos="zoom-in-up">
+        <div>
+          <p><i class="fas fa-phone-alt"></i> +91 8470979721</p>
+          <p><i class="fas fa-envelope"></i> utkarshyadav1202@gmail.com</p>
+          <p><i class="fab fa-linkedin"></i> linkedin.com/in/utkarsh-yadav-40bb33244</p>
+          <div class="social-icons" style="margin-top: 1rem;"><a href="#"><i class="fab fa-github"></i></a><a href="#"><i class="fab fa-twitter"></i></a></div>
+        </div>
+        <form class="contact-form" id="contactForm">
+          <input type="text" placeholder="Your Name" required><br><br>
+          <input type="email" placeholder="Email" required><br><br>
+          <textarea rows="4" placeholder="Message..."></textarea><br><br>
+          <button type="submit" class="btn btn-primary">Send Message <i class="fas fa-paper-plane"></i></button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>© 2026 Utkarsh Yadav — Java Full-Stack Developer. All rights reserved.</p>
+  <div style="margin-top: 1rem;">Quick Links: <a href="#home" style="color:#93c5fd;">Home</a> | <a href="#projects">Projects</a> | <a href="#contact">Contact</a></div>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 800, once: true, offset: 100 });
+  // Typing animation
+  const roles = ["Java Developer", "Spring Boot Developer", "Backend Engineer", "Full-Stack Developer"];
+  let roleIndex = 0, charIndex = 0;
+  const typingSpan = document.getElementById("typingText");
+  function typeRole() {
+    if (charIndex < roles[roleIndex].length) {
+      typingSpan.innerHTML += roles[roleIndex].charAt(charIndex);
+      charIndex++;
+      setTimeout(typeRole, 100);
+    } else {
+      setTimeout(eraseRole, 2000);
+    }
+  }
+  function eraseRole() {
+    if (charIndex > 0) {
+      typingSpan.innerHTML = roles[roleIndex].substring(0, charIndex-1);
+      charIndex--;
+      setTimeout(eraseRole, 60);
+    } else {
+      roleIndex = (roleIndex+1) % roles.length;
+      setTimeout(typeRole, 200);
+    }
+  }
+  typeRole();
+
+  // Scroll progress
+  window.addEventListener('scroll', () => {
+    const winScroll = document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - window.innerHeight;
+    const scrolled = (winScroll / height) * 100;
+    document.getElementById('scrollProgress').style.width = scrolled + "%";
+    const scrollBtn = document.getElementById('scrollTopBtn');
+    if (winScroll > 300) scrollBtn.style.opacity = "1"; else scrollBtn.style.opacity = "0";
+  });
+  document.getElementById('scrollTopBtn').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Animated counters (stat)
+  function animateCounter(id, target) {
+    let el = document.getElementById(id);
+    let count = 0;
+    let increment = target / 50;
+    let interval = setInterval(() => {
+      count += increment;
+      if (count >= target) { el.innerText = target; clearInterval(interval); }
+      else el.innerText = Math.floor(count);
+    }, 30);
+  }
+  animateCounter('projectsCount', 7);
+  animateCounter('experienceCount', 5);
+  animateCounter('techCount', 18);
+
+  // Skill bars animation on view
+  const skillBars = document.querySelectorAll('.skill-progress');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const width = entry.target.getAttribute('data-width');
+        entry.target.style.width = width + '%';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  skillBars.forEach(bar => observer.observe(bar));
+
+  // Background particles generator (floating gradients)
+  const particleContainer = document.getElementById('particles');
+  for (let i = 0; i < 14; i++) {
+    let particle = document.createElement('div');
+    particle.classList.add('glow-particle');
+    let size = Math.random() * 300 + 150;
+    particle.style.width = size + 'px';
+    particle.style.height = size + 'px';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.top = Math.random() * 100 + '%';
+    particle.style.animationDuration = 15 + Math.random() * 20 + 's';
+    particleContainer.appendChild(particle);
+  }
+
+  // download resume simulation
+  const resumeLinks = document.querySelectorAll('#downloadResumeBtn, #aboutResumeBtn');
+  resumeLinks.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      alert("Resume download feature: Utkarsh_Resume.pdf (demo simulation)");
+    });
+  });
+
+  // contact form simulation
+  document.getElementById('contactForm')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert("📩 Message sent! (Demo mode) Utkarsh will reach out soon.");
+    e.target.reset();
+  });
+</script>
+</body>
+</html>
